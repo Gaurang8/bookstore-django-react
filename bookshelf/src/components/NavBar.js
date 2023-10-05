@@ -1,9 +1,9 @@
 import React from 'react'
-import Search from "../img/icons8-search-100.png"
-import Toggle from "../img/navtoggle.png"
-import User from "../img/user.svg"
-import Favorite from "../img/favorite-64.png"
-import Cart from "../img/cart.svg"
+import Search from "../cover/icons8-search-100.png"
+import Toggle from "../cover/navtoggle.png"
+import User from "../cover/user.svg"
+import Favorite from "../cover/favorite-64.png"
+import Cart from "../cover/cart.svg"
 
 
 const NavBar = () => {

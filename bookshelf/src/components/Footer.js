@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Envelop from "../img/envelope-outline.svg"
+import Envelop from "../cover/envelope-outline.svg"
 
 const Footer = () => {
     return (

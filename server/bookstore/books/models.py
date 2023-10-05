@@ -31,6 +31,7 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher , on_delete=models.CASCADE)
     category = models.ForeignKey(Category , on_delete=models.CASCADE)
     cover = models.ImageField(upload_to='cover/' , blank=True , null=True)
+    rating = models.IntegerField(blank=True , null=True)
 
     def __str__(self):
         return self.title

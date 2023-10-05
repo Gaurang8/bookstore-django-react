@@ -2,17 +2,17 @@ import React from 'react'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 
-import Jules from "../img/julesvern.jpeg"
-import agatha from "../img/AgathaChristie.jpeg"
-import Chetanb from "../img/chetanbhagat.jpeg"
-import Drsarad from "../img/drsaradthakar.jpeg"
-import Paulo from "../img/PauloCoelho.jpeg"
-import Amit from "../img/amishtripathi.jpeg"
+import Jules from "../cover/julesvern.jpeg"
+import agatha from "../cover/AgathaChristie.jpeg"
+import Chetanb from "../cover/chetanbhagat.jpeg"
+import Drsarad from "../cover/drsaradthakar.jpeg"
+import Paulo from "../cover/PauloCoelho.jpeg"
+import Amit from "../cover/amishtripathi.jpeg"
 
-import heros from "../img/a-heros.jpg"
-import bookicon from "../img/bookicon.png"
-import delivery from "../img/delivery.png"
-import Support_exp from "../img/supportexp.png"
+import heros from "../cover/a-heros.jpg"
+import bookicon from "../cover/bookicon.png"
+import delivery from "../cover/delivery.png"
+import Support_exp from "../cover/supportexp.png"
 
 
 

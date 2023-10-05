@@ -24,7 +24,6 @@ class BookView(APIView):
         return Response(serializer.data)
 
         
-        return Response(serializer.data)
     
     def post(self , request):
         serializer = BookSerializer(data=request.data)
