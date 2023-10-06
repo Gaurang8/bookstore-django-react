@@ -35,34 +35,4 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-    
-# class Review(models.Model):
-#     book = models.ForeignKey(Book , on_delete=models.CASCADE)
-#     review = models.TextField()
-
-#     def __str__(self):
-#         return self.review
-
-# class Order(models.Model):
-#     book = models.ForeignKey(Book , on_delete=models.CASCADE)
-#     quantity = models.IntegerField()
-#     customer_name = models.CharField(max_length=100)
-#     customer_email = models.EmailField()
-#     customer_phone = models.CharField(max_length=100)
-#     customer_address = models.CharField(max_length=100)
-#     date = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return self.customer_name
-    
-# class Contact(models.Model):
-#     name = models.CharField(max_length=100)
-#     email = models.EmailField()v
-#     phone = models.CharField(max_length=100)
-#     message = models.TextField()
-
-#     def __str__(self):
-#         return self.name
-
-
-
+  

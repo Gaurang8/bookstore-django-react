@@ -5,22 +5,27 @@ from .models import *
 from rest_framework.views import APIView
 
 from rest_framework.response import Response
+from django.db.models import Q
 
 class BookView(APIView):
-    def get(self , request):
+    def get(self, request):
+        category_names = request.GET.get('category','').split(',')
+        rating = request.GET.get('rating')
 
-        category_name = request.GET.get('category')
-        print(category_name)
-        if category_name:
+        books = Book.objects.all()
+
+        if category_names != ['']:
+            books = books.filter(category__name__in=category_names)
+            
+
+        if rating is not None:
             try:
-                category = Category.objects.get(name = category_name)
-                books = Book.objects.filter(category=category)
-            except Category.DoesNotExist:
-                return Response([])
+                rating = int(rating)
+                books = books.filter(rating__gte=rating)
+            except ValueError:
+                pass
 
-        else:
-            books = Book.objects.all()
-        serializer = BookSerializer(books , many=True)
+        serializer = BookSerializer(books, many=True)
         return Response(serializer.data)
 
         

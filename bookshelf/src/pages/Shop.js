@@ -10,23 +10,93 @@ import share from "../cover/share.png";
 import fav_64 from "../cover/favorite-64.png";
 import cart from "../cover/cart.svg";
 
-
 const Shop = () => {
   const [books, setBooks] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState([]);
+  const [ratingFilter, setRatingFilter] = useState("");
+
+  const categories = [
+    { id: 1, name: "biography" },
+    { id: 2, name: "horror" },
+    { id: 3, name: "Science & Fiction" },
+    { id: 4, name: "Adventures" },
+    { id: 5, name: "Romance" },
+    { id: 6, name: "Entertainments" },
+    { id: 7, name: "Comics" },
+  ];
+
+
+  useEffect(() => {
+    const categoryFilterString = categoryFilter.join(",");
+
+    fetch(
+      `http://localhost:8000/books/?category=${categoryFilter}&rating=${ratingFilter}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setBooks(data);
+        console.log(data);
+      });
+  }, [categoryFilter, ratingFilter]);
+
+  const handleCategoryChange = (categoryName) => {
+    if (categoryFilter.includes(categoryName)) {
+      setCategoryFilter(
+        categoryFilter.filter((category) => category !== categoryName)
+      );
+    } else {
+      // If the category is not selected, add it
+      setCategoryFilter([...categoryFilter, categoryName]);
+    }
+  };
 
   useEffect(() => {
     try {
       fetch("http://localhost:8000/books/")
-        .then((res) => res.json()
-        )
-        .then((data) =>{setBooks(data)
-         console.log(data)   
-         console.log(__dirname)
+        .then((res) => res.json())
+        .then((data) => {
+          setBooks(data);
+          console.log(data);
+          console.log(__dirname);
         });
     } catch (err) {
       console.log(err);
     }
   }, []);
+
+  const handleAddtoCart = async (id) => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+
+    if (token) {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/cart/cartdetails/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              book: id,
+              quantity: 1,
+            }),
+          }
+        );
+        console.log(response);
+        if (response.ok) {
+          alert("Added to cart");
+        } else {
+          alert("Something went wrong");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      alert("Please login to add to cart");
+    }
+  };
 
   return (
     <>
@@ -62,16 +132,21 @@ const Shop = () => {
                   </div>
                 </div>
                 <div className="s-book-container flex">
-                  {books &&
-
-                    books.map((ele, index) => (
+                  {books ?
+                    (books.map((ele, index) => (
                       <div className="s-book-card" key={ele?.id}>
                         <div className="s-book-card-img flex">
-                          <img src={"http://127.0.0.1:8000/".slice(0,-1)+ele?.cover} alt="book-img" />
-                          
+                          <img
+                            src={
+                              "http://127.0.0.1:8000/".slice(0, -1) + ele?.cover
+                            }
+                            alt="book-img"
+                          />
                         </div>
                         <div className="s-book-card-disc flex">
-                          <p className="p3-text book-c">{ele?.category?.name}</p>
+                          <p className="p3-text book-c">
+                            {ele?.category?.name}
+                          </p>
                           <div className="book-n">{ele?.title}</div>
                           <p className="p3-text book-w">{ele?.author?.name}</p>
                           <div className="rating-img">
@@ -85,20 +160,27 @@ const Shop = () => {
                                 <img src={share} alt="" />
                               </a>
                             </div>
-                            <div onclick="addtofav('adv1.jpg','The Black Thunder','Riley Peyton',399)">
+                            <div onClick="addtofav('adv1.jpg','The Black Thunder','Riley Peyton',399)">
                               <a href="#">
                                 <img src={fav_64} alt="like" />
                               </a>
                             </div>
-                            <div onclick="addtocart('adv1.jpg','The Black Thunder','Riley Peyton',399)">
-                              <a href="#">
+                            <div>
+                              <a
+                                href="#"
+                                onClick={() => {
+                                  console.log(ele?.id);
+                                  handleAddtoCart(ele?.id);
+                                }}
+                              >
                                 <img src={cart} alt="add to cart" />
                               </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )))
+                    : (<h1 style={{ textAlign: "center" }}>No Books</h1>)}
                 </div>
               </div>
               <div className="flex s-shop-filter">
@@ -106,7 +188,7 @@ const Shop = () => {
                 <div className="summary-box">
                   <div className="s-summary">
                     <input type="checkbox" name="" id="featured" />
-                    <label for="featured">
+                    <label htmlFor="featured">
                       <span>Authors</span>
                       <i>+</i>
                     </label>
@@ -114,25 +196,25 @@ const Shop = () => {
                       <ul>
                         <li>
                           <input type="checkbox" id="m1" />
-                          <label for="m1">
+                          <label htmlFor="m1">
                             <a href=""> Chetan bhagat</a>
                           </label>
                         </li>
                         <li>
                           <input type="checkbox" id="m2" />
-                          <label for="m2">Agatha Christie</label>
+                          <label htmlFor="m2">Agatha Christie</label>
                         </li>
                         <li>
                           <input type="checkbox" id="m3" />
-                          <label for="m3">Dr.Sarad Thakar</label>
+                          <label htmlFor="m3">Dr.Sarad Thakar</label>
                         </li>
                         <li>
                           <input type="checkbox" id="m4" />
-                          <label for="m4">Amish Tripathi</label>
+                          <label htmlFor="m4">Amish Tripathi</label>
                         </li>
                         <li>
                           <input type="checkbox" id="m5" />
-                          <label for="m5">Jules Verne</label>
+                          <label htmlFor="m5">Jules Verne</label>
                         </li>
                       </ul>
                     </div>
@@ -142,34 +224,27 @@ const Shop = () => {
                 <div className="summary-box">
                   <div className="s-summary">
                     <input type="checkbox" name="" id="cat" />
-                    <label for="cat">
+                    <label htmlFor="cat">
                       <span>category</span>
                       <i>+</i>
                     </label>
                     <div className="s-summary-items">
                       <ul>
-                        <li>
-                          <input type="checkbox" id="n1" />
-                          <label for="n1">
-                            <a href=""> adventures</a>
-                          </label>
-                        </li>
-                        <li>
-                          <input type="checkbox" id="n2" />
-                          <label for="n2">science & fiction</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" id="n3" />
-                          <label for="n3">Romantic</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" id="n4" />
-                          <label for="n4">horrer</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" id="n5" />
-                          <label for="n5">biography</label>
-                        </li>
+                        {categories.map((category) => (
+                          <li key={category.id}>
+                            <input
+                              type="checkbox"
+                              id={`cat-${category.id}`}
+                              onChange={() =>
+                                handleCategoryChange(category.name)
+                              }
+                              checked={categoryFilter.includes(category.name)}
+                            />
+                            <label htmlFor={`cat-${category.id}`}>
+                              <a href="">{category.name}</a>
+                            </label>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -178,33 +253,35 @@ const Shop = () => {
                 <div className="summary-box">
                   <div className="s-summary">
                     <input type="checkbox" name="" id="rat" />
-                    <label for="rat">
+                    <label htmlFor="rat">
                       <span>rating</span>
                       <i>+</i>
                     </label>
                     <div className="s-summary-items">
                       <ul>
                         <li>
-                          <input type="checkbox" id="s1" />
-                          <label for="s1">
+                          <input type="radio" id="s1" name="rating" onClick={()=>{setRatingFilter(5)}} />
+                          <label htmlFor="s1">
                             <a href="">5 star</a>
                           </label>
                         </li>
                         <li>
-                          <input type="checkbox" id="s2" />
-                          <label for="s2">4 star</label>
+                          <input type="radio" id="s1" name="rating" onClick={()=>{setRatingFilter(4)}}/>
+                          <label htmlFor="s2">4 star</label>
                         </li>
                         <li>
-                          <input type="checkbox" id="s3" />
-                          <label for="s3">3 star</label>
+                          <input type="radio" id="s1" name="rating" onClick={()=>{setRatingFilter(3)}} />
+                          <label htmlFor="s3">3 star</label>
                         </li>
                         <li>
-                          <input type="checkbox" id="s4" />
-                          <label for="s4">2 star</label>
+                          <input type="radio" id="s1" name="rating" onClick={()=>{setRatingFilter(2)}}/>
+
+                          <label htmlFor="s4">2 star</label>
                         </li>
                         <li>
-                          <input type="checkbox" id="s5" />
-                          <label for="s5">1 star</label>
+                          <input type="radio" id="s1" name="rating" onClick={()=>{setRatingFilter(1)}}/>
+
+                          <label htmlFor="s5">1 star</label>
                         </li>
                       </ul>
                     </div>

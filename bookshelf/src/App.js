@@ -6,10 +6,10 @@ import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import Shop from './pages/Shop';
 import Cart from './pages/Cart';
-import Login from './pages/Login';
 import Saved from './pages/Saved';
 
 import './App.css';
+import User from './pages/User';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<User />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/about" element={<AboutUs />} />
         </Routes>
