@@ -4,9 +4,13 @@ import Toggle from "../cover/navtoggle.png"
 import User from "../cover/user.svg"
 import Favorite from "../cover/favorite-64.png"
 import Cart from "../cover/cart.svg"
+import {Link} from "react-router-dom"
 
 
 const NavBar = () => {
+
+  const [sidebar, setSidebar] = React.useState(false)
+
   return (
     <section id="header-section">
     <div className="header">
@@ -22,14 +26,14 @@ const NavBar = () => {
         <div className="user-acc"><img src={User} alt=""/></div>
         <div><a href="favorite.html"><img src={Favorite
         } alt=""/></a></div>
-        <div><a href="cart.html"><img src={Cart} alt=""/></a></div>
+        <div><Link to="/cart"><img src={Cart} alt=""/></Link></div>
 
-        <div className="nav-toggle" id="navbar-toggle">
+        <div className="nav-toggle" id="navbar-toggle" onClick={()=> setSidebar(!sidebar)}>
           <img src={Toggle} alt="t" width="100%"/>
         </div>
       </div>
     </div>
-    <div className="navbar" id="navbar-link">
+    <div id="navbar-link" className={sidebar?"navbar nav-active":"navbar"}>
       <div className="account-info">
         <div className="acco-img flex">
           <img src={User} alt=""/>
@@ -40,10 +44,10 @@ const NavBar = () => {
         </div>
       </div>
       <ul>
-        <li><a href="index.html" className="active">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="aboutus.html">About US</a></li>
-        <li><a href="contact_us.html">Contact Us</a></li>
+      <li><Link to="/" className="active">Home</Link></li>
+        <li><Link to="/shop">Shop</Link></li>
+        <li><Link to="/about">About US</Link></li>
+        <li><Link to="/contact">Contact Us</Link></li>
       </ul>
     </div>
   </section>

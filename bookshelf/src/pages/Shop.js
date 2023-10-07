@@ -185,41 +185,7 @@ const Shop = () => {
               </div>
               <div className="flex s-shop-filter">
                 <div className="s-sidebar-title">Filter</div>
-                <div className="summary-box">
-                  <div className="s-summary">
-                    <input type="checkbox" name="" id="featured" />
-                    <label htmlFor="featured">
-                      <span>Authors</span>
-                      <i>+</i>
-                    </label>
-                    <div className="s-summary-items">
-                      <ul>
-                        <li>
-                          <input type="checkbox" id="m1" />
-                          <label htmlFor="m1">
-                            <a href=""> Chetan bhagat</a>
-                          </label>
-                        </li>
-                        <li>
-                          <input type="checkbox" id="m2" />
-                          <label htmlFor="m2">Agatha Christie</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" id="m3" />
-                          <label htmlFor="m3">Dr.Sarad Thakar</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" id="m4" />
-                          <label htmlFor="m4">Amish Tripathi</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" id="m5" />
-                          <label htmlFor="m5">Jules Verne</label>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+          
 
                 <div className="summary-box">
                   <div className="s-summary">
