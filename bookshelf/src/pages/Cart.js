@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import cartImg from "../cover/cart.svg";
 import crossImg from "../cover/dustbin.png";
+import NavBar from "../components/NavBar";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -24,7 +25,7 @@ const Cart = () => {
         console.log(result);
         setCartItems(result);
       } else {
-        alert("Something went wrong");
+        console.log("Something went wrong");
       }
     } catch (err) {
       console.log(err);
@@ -89,7 +90,7 @@ const Cart = () => {
         alert("Item Removed");
         cartDetails(token);
         } else {
-        alert("Something went wrong");
+        console.log("Something went wrong");
         }
     }
     catch (err) {
@@ -112,6 +113,8 @@ const Cart = () => {
   }, []);
 
   return (
+    <>
+    <NavBar/>
     <div className="main-cart">
       <div className="cart-heading flex ">
         <img src={cartImg} alt="cart img" />
@@ -207,6 +210,7 @@ const Cart = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
